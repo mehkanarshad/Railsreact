@@ -7,10 +7,8 @@ function PostList() {
 
     useEffect (() => {
         async function loadPosts (){
-            console.log("Hey, I am loadPost and I am being called");
             try{
                 const response = await fetch (API_URL);
-                console.log(response);
                 if(response.ok){
                     const json = await response.json();
                     setPosts(json);
