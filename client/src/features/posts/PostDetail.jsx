@@ -33,7 +33,8 @@ export default function PostDetail() {
     <div>
       <h2>{post.title}</h2>
       <p>{post.body}</p>
-      <Link to= "/">Back to Posts</Link>
+      <Link to= "/">Back to Posts</Link> <br/>
+      <Link to={`/posts/${id}/edit`}>Edit this post</Link>
     </div>
   )
 }
