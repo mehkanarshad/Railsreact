@@ -8,6 +8,7 @@ export default function PostDetail() {
     const [post, setPosts] = useState(null);
     const [loading, setLoading] = useState(false);
     const {id} = useParams();
+    const navigate = useNavigate();
 
     useEffect(()=>{
         const fetchCurrentPost = async () =>{
@@ -28,6 +29,22 @@ export default function PostDetail() {
         };
         fetchCurrentPost();
     },[id]);
+
+    const deletePost = async () =>{
+      try{
+        const response = await fetch(`${API_URL}/${id}`,{
+          method: "DELETE",
+        });
+        if(response.ok){
+          navigate("/");
+        }else{
+          throw response;
+        }
+      }catch(e){
+        console.error("An error ocurred", e);
+      }
+    }
+
     if (!post) return <Loader/>
   return (
     <div>
@@ -35,6 +52,7 @@ export default function PostDetail() {
       <p>{post.body}</p>
       <Link to= "/">Back to Posts</Link> <br/>
       <Link to={`/posts/${id}/edit`}>Edit this post</Link>
+      <button onClick={deletePost}>Delete</button>
     </div>
   )
 }

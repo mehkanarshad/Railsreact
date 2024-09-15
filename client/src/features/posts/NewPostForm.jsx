@@ -27,7 +27,7 @@ export default function NewPostForm() {
   };
 
   return (
-    <div>
+    <div style={{height: "100vh"}}>
       <h2> Create New Post</h2>
       <form onSubmit={handleSubmit}>
         <div>

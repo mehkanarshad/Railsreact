@@ -6,8 +6,6 @@ import Loader from "../../componenets/Loader";
 
 export default function EditPostForm() {
   const { id } = useParams();
-//   const [title, setTilte] = useState();
-//   const [body, setBody] = useState();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
