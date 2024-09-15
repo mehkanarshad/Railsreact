@@ -3,18 +3,17 @@ import { BrowserRouter as Router } from "react-router-dom";
 import AppRoutes from "./componenets/AppRoutes";
 import "./App.css";
 import Navbar from "./componenets/Navbar";
-// import BackgroundVideo from "./componenets/background";
+import BackgroundVideo from "./componenets/background";
 
 function App() {
   return (
     <Router>
       <div className="video-container">
-        {/* <video autoPlay loop muted className="background-video">
+        <video autoPlay loop muted className="background-video">
           <source src="/videos/background.mp4" type="video/mp4" />
           Your browser does not support the video tag.
-        </video> */}
+        </video>
         <div className="app">
-          <h1>React on Rails Blog</h1>
           <Navbar />
           <AppRoutes />
         </div>
