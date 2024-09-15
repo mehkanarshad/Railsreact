@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams,Link } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { API_URL } from "../../Constants";
 import Loader from "../../componenets/Loader";
-
 
 export default function EditPostForm() {
   const { id } = useParams();
@@ -12,28 +11,24 @@ export default function EditPostForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try{
-        const response = await fetch(`${API_URL}/${id}`, {
-            method: "PUT",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify({
-              title: post.title,
-              body: post.body,
-            }),
-          });
+    try {
+      const response = await fetch(`${API_URL}/${id}`, {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          title: post.title,
+          body: post.body,
+        }),
+      });
 
-          if (response.ok) {
-            navigate(`/posts/${id}`);
-          } else {
-            console.error("An error occured");
-          }
-    }catch(e){
-
-    }
-   
-    
+      if (response.ok) {
+        navigate(`/posts/${id}`);
+      } else {
+        console.error("An error occured");
+      }
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -56,33 +51,41 @@ export default function EditPostForm() {
     fetchCurrentPost();
   }, [id]);
   return (
-    <div>
-      <h2>Edit post</h2>
-      {loading && <Loader />}
-      {post && <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="postTitle">Title: </label>
-          <input
-            type="text"
-            id="postTitle"
-            value={post.title}
-            onChange={(e) => setPost({...post,title: e.target.value})}
-          />
+    <>
+      <div style={{height: "100vh"}}>
+        <div className="modal">
+          <p className="h1">Edit post</p>
+          {loading && <Loader />}
+          {post && (
+            <form onSubmit={handleSubmit}>
+              <div>
+                <label htmlFor="postTitle">Title: </label>
+                <input
+                  type="text"
+                  id="postTitle"
+                  value={post.title}
+                  onChange={(e) => setPost({ ...post, title: e.target.value })}
+                />
+              </div>
+              <div>
+                <label htmlFor="postBody">Body: </label>
+                <input
+                  type="text"
+                  id="postBody"
+                  value={post.body}
+                  onChange={(e) => setPost({ ...post, body: e.target.value })}
+                />
+              </div>
+              <div>
+                <button className="primary">Edit</button>
+                <Link className="primary" to={`/posts/${id}`}>
+                  Back
+                </Link>
+              </div>
+            </form>
+          )}
         </div>
-        <div>
-          <label htmlFor="postBody">Body: </label>
-          <input
-            type="text"
-            id="postBody"
-            value={post.body}
-            onChange={(e) => setPost({...post,body: e.target.value})}
-          />
-        </div>
-        <div>
-          <button >Edit</button>
-          <Link to={`/posts/${id}`}>Back</Link>
-        </div>
-      </form>}
-    </div>
+      </div>
+    </>
   );
 }
