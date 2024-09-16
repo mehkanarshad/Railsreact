@@ -3,9 +3,21 @@ class Api::V1::PostsController < ApplicationController
 
   # GET /posts
   def index
-    @posts = Post.order(created_at: :desc)
-    
-    render json: @posts
+    limit = params[:limit].to_i > 0 ? params[:limit].to_i : 5
+    page = params[:page].to_i > 0 ? params[:page].to_i : 1
+
+    total_posts = Post.count
+    @posts = Post.order(created_at: :desc).limit(limit).offset((page - 1) * limit)
+    total_pages = (total_posts / limit.to_f).ceil
+
+    render json: {
+      posts: @posts,
+      meta: {
+        page_number: page,
+        total_pages: total_pages,
+        total_posts: total_posts
+      }
+    }
   end
 
   # GET /posts/1

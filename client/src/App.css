@@ -139,6 +139,7 @@ button[type="submit"]:hover {
   max-width: 70vw;
   margin: 4rem auto;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  height: 80%;
 }
 
 

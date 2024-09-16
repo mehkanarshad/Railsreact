@@ -5,24 +5,43 @@ import { Link } from "react-router-dom";
 function PostList() {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [limit, setLimit] = useState(5);
+
+  async function loadPosts() {
+    try {
+      const response = await fetch(
+        `${API_URL}?page=${currentPage}&limit=${limit}`
+      );
+      if (response.ok) {
+        const json = await response.json();
+        setPosts(json.posts);
+        setTotalPages(json.meta.total_pages);
+      } else {
+        throw response;
+      }
+    } catch (e) {
+      setError("An error occurred.");
+      console.log("Error", e);
+    }
+  }
 
   useEffect(() => {
-    async function loadPosts() {
-      try {
-        const response = await fetch(API_URL);
-        if (response.ok) {
-          const json = await response.json();
-          setPosts(json);
-        } else {
-          throw response;
-        }
-      } catch (e) {
-        setError("An error occurred.");
-        console.log("Error", e);
-      }
-    }
     loadPosts();
-  }, []);
+  }, [currentPage]);
+
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   const deletePost = async (id) => {
     try {
@@ -54,6 +73,11 @@ function PostList() {
             </button>
           </div>
         ))}
+        <div>
+          <button onClick={handlePrevious} className="primary">Previous</button>
+          <button onClick={() => handleNext()} className="primary">Next</button>
+
+        </div>
       </div>
     </>
   );
