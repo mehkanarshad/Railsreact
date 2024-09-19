@@ -16,6 +16,15 @@ export default [
         ecmaFeatures: { jsx: true },
         sourceType: 'module',
       },
+      env: {
+        jest: true,   
+        node: true,  
+        browser: true, 
+      },
+      extends: [
+        "plugin:react-hooks/recommended",
+        "plugin:jest/recommended",
+      ]
     },
     settings: { react: { version: '18.3' } },
     plugins: {
