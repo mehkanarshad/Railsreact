@@ -10,6 +10,12 @@ class Api::V1::PostsController < ApplicationController
     @posts = Post.order(created_at: :desc).limit(limit).offset((page - 1) * limit)
     total_pages = (total_posts / limit.to_f).ceil
 
+    post_with_images = @posts.map do |post|
+      post_json = post.as_json
+      post_json['image_url'] = url_for(image.post) if post.image.attached?
+      post_json
+    end
+
     render json: {
       posts: @posts,
       meta: {
@@ -22,7 +28,9 @@ class Api::V1::PostsController < ApplicationController
 
   # GET /posts/1
   def show
-    render json: @post
+    post_json = @post.as_json
+    post_json['image_url'] = url_for(image.post) if @post.image.attached?
+    render json: post_json
   end
 
   # POST /posts
@@ -30,6 +38,7 @@ class Api::V1::PostsController < ApplicationController
     @post = Post.new(post_params)
 
     if @post.save
+      @post.image.attach(params[:post][:image]) if params[:post][:image].present?
       render json: @post, status: :created, location: api_v1_post_url(@post)
     else
       render json: @post.errors, status: :unprocessable_entity
@@ -39,6 +48,7 @@ class Api::V1::PostsController < ApplicationController
   # PATCH/PUT /posts/1
   def update
     if @post.update(post_params)
+      @post.image.attach(params[:post][:image]) if params[:post][:image].present?
       render json: @post
     else
       render json: @post.errors, status: :unprocessable_entity
@@ -51,13 +61,11 @@ class Api::V1::PostsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:body,:title)
+      params.require(:post).permit(:body,:title , :image)
     end
 end
