@@ -3,7 +3,7 @@ class Api::V1::PostsController < ApplicationController
 
   # GET /posts
   def index
-    limit = params[:limit].to_i > 0 ? params[:limit].to_i : 5
+    limit = params[:limit].to_i > 0 ? params[:limit].to_i : 2
     page = params[:page].to_i > 0 ? params[:page].to_i : 1
 
     total_posts = Post.count

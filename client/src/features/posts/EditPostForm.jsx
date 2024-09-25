@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { API_URL } from "../../Constants";
 import Loader from "../../componenets/Loader";
+import Navbar from "../../componenets/Navbar"
 
 export default function EditPostForm() {
   const { id } = useParams();
@@ -51,7 +52,9 @@ export default function EditPostForm() {
     fetchCurrentPost();
   }, [id]);
   return (
-    <>
+    <>  
+      <Navbar/>
+
       <div style={{height: "100vh"}}>
         <div className="modal">
           <p className="h1">Edit post</p>

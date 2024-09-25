@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../Constants";
 import '../../App.css'
+import Navbar from "../../componenets/Navbar";
 
 export default function NewPostForm() {
   const [title, setTilte] = useState("");
@@ -29,6 +30,7 @@ export default function NewPostForm() {
 
   return (
     <div style={{ height: "100vh" }}>
+    <Navbar/>
       <div className="modal">
         <p className="h1"> Create New Post</p>
         <form onSubmit={handleSubmit}>

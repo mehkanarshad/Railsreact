@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { API_URL } from "../../Constants";
 import Loader from "../../componenets/Loader";
+import Navbar from "../../componenets/Navbar";
 
 export default function PostDetail() {
   const [post, setPosts] = useState(null);
@@ -46,6 +47,7 @@ export default function PostDetail() {
   if (!post) return <Loader />;
   return (
     <div style={{ height: "100vh" }}>
+      <Navbar/>
       <div className="modal">
         <h2 className="h1">{post.title}</h2>
         <p className="paragraph">{post.body}</p>

@@ -21,14 +21,18 @@
   position: relative;
   width: 100vw;
   height: 100%;
+  top: -50%;
+  /* left: -50%; */
+
   /* overflow: hidden; */
+  /* background-color: palevioletred; */
 }
 
 .background-video {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 100%;
+  width: 100vw;
   height: 100%;
   object-fit: cover;
   transform: translate(-50%, -50%);
@@ -139,7 +143,7 @@ button[type="submit"]:hover {
   max-width: 70vw;
   margin: 4rem auto;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  height: 80%;
+  height: 50vh;
 }
 
 
@@ -158,4 +162,11 @@ button[type="submit"]:hover {
 .post-container{
   display: flex;
   align-items: center;
+}
+
+
+
+/* ............................................login page........................................  */
+.login-navbar{
+  color: #f8f8f8;
 }

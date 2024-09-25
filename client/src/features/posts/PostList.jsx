@@ -1,13 +1,14 @@
 import { API_URL } from "../../Constants";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Navbar from "../../componenets/Navbar";
 
 function PostList() {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(2);
 
   async function loadPosts() {
     try {
@@ -62,6 +63,7 @@ function PostList() {
   };
   return (
     <>
+      <Navbar/>
       <div className="modal">
         {posts.map((post) => (
           <div key={post.id} className="post-container">
